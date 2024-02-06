@@ -1,0 +1,59 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	EatYourWay - {{ restaurant.name }}
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success mt-4">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		<h1 class="mt-4">{{ restaurant.name }}</h1>
+
+		<div class="restaurant__image">
+			{% if restaurant.imageName %}
+				<img style="max-width: 500px;" src="{{ vich_uploader_asset(restaurant, 'imageFile') }}" alt="Image du restaurant">
+			{% else %}
+				<p>Aucune image disponible</p>
+			{% endif %}
+		</div>
+
+		<div class="mt-4">
+			<p>Description : {{ restaurant.description }}</p>
+		</div>
+
+		{% if restaurant.diet %}
+			<div class="mt-4">
+				<p>Régime : {{ restaurant.diet.name }}</p>
+			</div>
+		{% endif %}
+
+		{% if restaurant.specialty %}
+			<div class="mt-4">
+				<p>Spécialité : {{ restaurant.specialty.name }}</p>
+			</div>
+		{% endif %}
+
+		<div class="mt-4">
+			<p>Adresse : {{ restaurant.street_number }} {{ restaurant.street }}, {{ restaurant.zip_code }} {{ restaurant.city }}</p>
+		</div>
+
+		{% if restaurant.email %}
+			<div class="mt-4">
+				<p>Email : {{ restaurant.email }}</p>
+			</div>
+		{% endif %}
+
+		{% if restaurant.phone %}
+			<div class="mt-4">
+				<p>Téléphone : {{ restaurant.phone }}</p>
+			</div>
+		{% endif %}
+
+	</div>
+{% endblock %}

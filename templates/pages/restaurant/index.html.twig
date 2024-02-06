@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EatYourWay - Mes restaurants
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success mt-4">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		{% if not restaurants.items is same as([]) %}
+			<h1>Mes restaurants</h1>
+
+			<a href="{{ path('restaurant.new') }}" class="btn btn-primary">
+				Créer une restaurant
+			</a>
+
+			<div class="count mt-4">Il y a
+				{{ restaurants.getTotalItemCount }}
+				restaurant(s)
+			</div>
+
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Numéro</th>
+						<th scope="col">Nom</th>
+						<th scope="col">Prix</th>
+						<th scope="col">Difficulté</th>
+						<th scope="col">Date de création</th>
+						<th scope="col">Edition</th>
+						<th scope="col">Suppresion</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for restaurant in restaurants %}
+						<tr class="table-primary">
+							<th scope="row">{{ restaurant.id }}</th>
+							<td>{{ restaurant.name }}</td>
+							<td>
+								{% if restaurant.price is null %}
+									Non renseigné
+								{% else %}
+									{{ restaurant.price|number_format(2, '.', ',') }}
+									€
+								{% endif %}
+							</td>
+							<td>
+								{% if restaurant.difficulty is null %}
+									Non renseigné
+								{% else %}
+									{{ restaurant.difficulty }}
+								{% endif %}
+							</td>
+							<td>{{ restaurant.createdAt|date('d/m/Y') }}</td>
+							<td>
+								<a href="{{ path('restaurant.edit', { id: restaurant.id }) }}" class="btn btn-info">Modifier</a>
+							</td>
+							<td>
+								<a href="{{ path('restaurant.delete', { id: restaurant.id }) }}" class="btn btn-warning">Supprimer</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<div class="navigation d-flex justify-content-center mt-4">
+				{{ knp_pagination_render(restaurants) }}
+			</div>
+		{% else %}
+			<h4>Il n'y a pas de restaurants</h4>
+
+			<a href="{{ path('restaurant.new') }}" class="btn btn-primary">
+				Créer une restaurant
+			</a>
+		{% endif %}
+	</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\User;
+use App\Entity\UserInfos;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+
+class AdditionalUserInfosType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('last_name')
+            ->add('first_name')
+            ->add('phone')
+            // ->add('birth_date', DateType::class, [
+            //     'widget' => 'single_text', // pour un champ de date simple
+            //     'format' => 'dd/MM/yyyy', // au besoin, adaptez le format
+            // ])
+            ->add('user', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'id',
+            ])
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => UserInfos::class,
+        ]);
+    }
+}

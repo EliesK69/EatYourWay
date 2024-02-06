@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EatYourWay - {{ diet.name }}{% endblock %}
+
+{% block body %}
+{% block javascripts %}
+    <script src="{{ asset('js/MonBoFiltre.js') }}"></script>
+{% endblock %}
+<div class="container mt-4">
+    <h1>Restaurants : {{ diet.name }}</h1>
+
+    <form method="GET" action="">
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" name="specialty" placeholder="Spécialité">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" name="city" placeholder="Ville">
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Filtrer</button>
+            </div>
+        </div>
+    </form>
+
+    {% if diet.restaurants|length %}
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Spécialité</th>
+                    <th>Ville</th>
+                    <th>Public</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for restaurant in diet.restaurants %}
+                    {% if restaurant.isPublic or (app.user and restaurant.user == app.user) %}
+                        <tr data-specialty="{{ restaurant.specialty.name|default('Non spécifié') }}" data-city="{{ restaurant.city }}">
+                            <td>{{ restaurant.name }}</td>
+                            <td>{{ restaurant.description }}</td>
+                            <td>{{ restaurant.specialty ? restaurant.specialty.name : 'Non spécifié' }}</td>
+                            <td>{{ restaurant.city }}</td>
+                            <td>{{ restaurant.isPublic ? 'Oui' : 'Non' }}</td>
+                            <td>
+                                <a href="{{ path('restaurant.show', {'id': restaurant.id}) }}" class="btn btn-sm btn-primary">Voir</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucun restaurant trouvé pour ce régime alimentaire.</p>
+    {% endif %}
+</div>
+{% endblock %}

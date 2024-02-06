@@ -1,0 +1,85 @@
+{% extends "base.html.twig" %}
+
+{% block title %}EatYourWay - Modification du restaurant{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="mt-4">Modification du restaurant</h1>
+
+    {{ form_start(form, {'attr': {'enctype':'multipart/form-data'}}) }}
+
+    <div class="form-group">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+        {{ form_errors(form.name) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.imageFile) }}
+        {{ form_widget(form.imageFile) }}
+        {{ form_errors(form.imageFile) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
+        {{ form_errors(form.description) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.diet) }}
+        {{ form_widget(form.diet) }}
+        {{ form_errors(form.diet) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.specialty) }}
+        {{ form_widget(form.specialty) }}
+        {{ form_errors(form.specialty) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email) }}
+        {{ form_errors(form.email) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.phone) }}
+        {{ form_widget(form.phone) }}
+        {{ form_errors(form.phone) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.street_number) }}
+        {{ form_widget(form.street_number) }}
+        {{ form_errors(form.street_number) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.street) }}
+        {{ form_widget(form.street) }}
+        {{ form_errors(form.street) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.zip_code) }}
+        {{ form_widget(form.zip_code) }}
+        {{ form_errors(form.zip_code) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.city) }}
+        {{ form_widget(form.city) }}
+        {{ form_errors(form.city) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.isPublic) }}
+        {{ form_widget(form.isPublic) }}
+        {{ form_errors(form.isPublic) }}
+    </div>
+
+    {{ form_end(form) }}
+</div>
+{% endblock %}

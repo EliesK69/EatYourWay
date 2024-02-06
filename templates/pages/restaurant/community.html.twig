@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EatYourWay - Restaurants de la communauté EatYourWay
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		{% if not restaurants.items is same as([]) %}
+			<h1>Restaurants de la communauté EatYourWay</h1>
+
+			<div class="d-flex justify-content-center flex-wrap">
+				{% for restaurant in restaurants %}
+					<div class="card border-primary mb-3" style="max-width: 20rem;">
+						<div class="card-header">{{ restaurant.name }}</div>
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="{{ path('restaurant.show', {id: restaurant.id}) }}">{{ restaurant.name }}</a>
+							</h4>
+							<p class="card-text">{{ restaurant.description|slice(0, 100) ~ '...' }}</p>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
+
+		{% else %}
+			<h4>Il n'y a pas de restaurants</h4>
+		{% endif %}
+	</div>
+{% endblock %}

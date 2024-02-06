@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EatYourWay - Régimes Alimentaires{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success mt-4">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <h1>Régimes Alimentaires</h1>
+
+    <a href="{{ path('diet.new') }}" class="btn btn-primary">
+        Créer un régime alimentaire
+    </a>
+
+    {% if diets|length %}
+        <div class="mt-4">Il y a {{ diets|length }} régime(s) alimentaire(s)</div>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Numéro</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Date de création</th>
+                    <th scope="col">Voir les restaurants</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for diet in diets %}
+                    <tr class="table-primary">
+                        <th scope="row">{{ diet.id }}</th>
+                        <td>{{ diet.name }}</td>
+                        <td>{{ diet.createdAt|date('d/m/Y') }}</td>
+                        <td>
+                            <a href="{{ path('diet.show', { id: diet.id }) }}" class="btn btn-info">Afficher</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4>Aucun régime alimentaire trouvé</h4>
+    {% endif %}
+</div>
+{% endblock %}

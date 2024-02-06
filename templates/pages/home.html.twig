@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block title %}EatYourWay - Accueil
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<div class="jumbotron">
+			<h1 class="display-4">Bienvenue sur EatYourWay</h1>
+			<p class="lead">EatYourWay est une application qui va te permettre de trouver le restaurant de ton choix, en ne te souciant que de la spécialité et ceci peu importe ton régime alimentaire !</p>
+			<hr class="my-4">
+			<p>Vous êtes un restaurateur et vous souhaitez mettre en avant, votre enseigne spécialisée auprès de votre clientèle cible ? Inscrivez-vous et ajoutez votre restaurant !</p>
+			<a class="btn btn-primary btn-lgz" href="{{ path('security.registration') }}" role="button">Inscription</a>
+		</div>
+
+		<div class="restaurants">
+			<h2 class="mt-4">Restaurants de la communauté EatYourWay</h2>
+			<div class="d-flex justify-content-between">
+				{% for restaurant in restaurants %}
+					<div class="card border-primary mb-3" style="max-width: 20rem;">
+						<div class="card-header">{{ restaurant.id }}</div>
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="{{ path('restaurant.show', {id: restaurant.id}) }}">{{ restaurant.name }}</a>
+							</h4>
+							<p class="card-text">{{ restaurant.description|slice(0, 100) ~ '...' }}</p>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
